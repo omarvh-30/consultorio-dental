@@ -6,21 +6,22 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
 
-    public function up()
-    {
-        Schema::table('historia_odontologica', function (Blueprint $table) {
-            $table->foreignId('paciente_id')
-                  ->after('id')
-                  ->constrained()
-                  ->cascadeOnDelete();
-        });
-    }
+public function up()
+{
+    Schema::table('historia_odontologica', function (Blueprint $table) {
+        if (!Schema::hasColumn('historia_odontologica', 'paciente_id')) {
+            $table->unsignedBigInteger('paciente_id')->after('id');
+        }
+    });
+}
 
-    public function down()
-    {
-        Schema::table('historia_odontologica', function (Blueprint $table) {
-            $table->dropForeign(['paciente_id']);
+public function down()
+{
+    Schema::table('historia_odontologica', function (Blueprint $table) {
+        if (Schema::hasColumn('historia_odontologica', 'paciente_id')) {
             $table->dropColumn('paciente_id');
-        });
-    }
+        }
+    });
+}
+
 };
