@@ -9,21 +9,22 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
+public function up()
+{
     Schema::table('historia_odontologica', function (Blueprint $table) {
-        $table->text('observaciones')->nullable();
+        if (!Schema::hasColumn('historia_odontologica', 'observaciones')) {
+            $table->text('observaciones')->nullable();
+        }
     });
+}
 
-    }
+public function down()
+{
+    Schema::table('historia_odontologica', function (Blueprint $table) {
+        if (Schema::hasColumn('historia_odontologica', 'observaciones')) {
+            $table->dropColumn('observaciones');
+        }
+    });
+}
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::table('historia_odontologica', function (Blueprint $table) {
-            //
-        });
-    }
 };

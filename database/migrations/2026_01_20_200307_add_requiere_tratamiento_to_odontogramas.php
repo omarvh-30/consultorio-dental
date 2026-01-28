@@ -8,16 +8,20 @@ class AddRequiereTratamientoToOdontogramas extends Migration
     public function up()
     {
         Schema::table('odontogramas', function (Blueprint $table) {
-            $table->boolean('requiere_tratamiento')
-                ->default(false)
-                ->after('estado');
+            if (!Schema::hasColumn('odontogramas', 'requiere_tratamiento')) {
+                $table->boolean('requiere_tratamiento')
+                    ->default(false)
+                    ->after('estado');
+            }
         });
     }
 
     public function down()
     {
         Schema::table('odontogramas', function (Blueprint $table) {
-            $table->dropColumn('requiere_tratamiento');
+            if (Schema::hasColumn('odontogramas', 'requiere_tratamiento')) {
+                $table->dropColumn('requiere_tratamiento');
+            }
         });
     }
 }

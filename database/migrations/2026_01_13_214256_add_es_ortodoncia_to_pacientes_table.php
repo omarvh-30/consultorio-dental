@@ -1,28 +1,24 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
-    /**
-     * Run the migrations.
-     */
+return new class extends Migration {
     public function up(): void
     {
-    Schema::table('pacientes', function (Blueprint $table) {
-        $table->boolean('es_ortodoncia')->default(false)->after('email');
-    });
+        Schema::table('pacientes', function (Blueprint $table) {
+            if (!Schema::hasColumn('pacientes', 'es_ortodoncia')) {
+                $table->boolean('es_ortodoncia')->default(false)->after('email');
+            }
+        });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::table('pacientes', function (Blueprint $table) {
-            //
+            if (Schema::hasColumn('pacientes', 'es_ortodoncia')) {
+                $table->dropColumn('es_ortodoncia');
+            }
         });
     }
 };

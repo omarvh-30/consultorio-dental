@@ -4,43 +4,49 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
-    /**
-     * Run the migrations.
-     */
-public function up()
-{
-    Schema::table('ortodoncias', function (Blueprint $table) {
+return new class extends Migration {
+    public function up()
+    {
+        Schema::table('ortodoncias', function (Blueprint $table) {
 
-        // Paso 1
-        $table->text('diagnostico')->nullable()->after('estado');
+            if (!Schema::hasColumn('ortodoncias', 'diagnostico')) {
+                $table->text('diagnostico')->nullable()->after('estado');
+            }
 
-        // Pasos clínicos (fechas = hitos)
-        $table->date('fecha_profilaxis')->nullable();
-        $table->date('fecha_colocacion')->nullable();
-        $table->date('fecha_retiro')->nullable();
-        $table->date('fecha_retenedores')->nullable();
-        $table->date('fecha_fin')->nullable();
-    });
-}
+            $fechas = [
+                'fecha_profilaxis',
+                'fecha_colocacion',
+                'fecha_retiro',
+                'fecha_retenedores',
+                'fecha_fin',
+            ];
 
+            foreach ($fechas as $fecha) {
+                if (!Schema::hasColumn('ortodoncias', $fecha)) {
+                    $table->date($fecha)->nullable();
+                }
+            }
+        });
+    }
 
-    /**
-     * Reverse the migrations.
-     */
-public function down()
-{
-    Schema::table('ortodoncias', function (Blueprint $table) {
-        $table->dropColumn([
-            'diagnostico',
-            'fecha_profilaxis',
-            'fecha_colocacion',
-            'fecha_retiro',
-            'fecha_retenedores',
-            'fecha_fin',
-        ]);
-    });
-}
+    public function down()
+    {
+        Schema::table('ortodoncias', function (Blueprint $table) {
 
+            $columnas = [
+                'diagnostico',
+                'fecha_profilaxis',
+                'fecha_colocacion',
+                'fecha_retiro',
+                'fecha_retenedores',
+                'fecha_fin',
+            ];
+
+            foreach ($columnas as $columna) {
+                if (Schema::hasColumn('ortodoncias', $columna)) {
+                    $table->dropColumn($columna);
+                }
+            }
+        });
+    }
 };
