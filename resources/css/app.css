@@ -1,0 +1,957 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================
+   SISTEMA DE COLORES GLOBAL
+   ========================= */
+
+:root {
+    --bg-main: #f8f9fa;
+    --bg-card: #ffffff;
+    --bg-soft: #f1f3f5;
+
+    --text-main: #212529;
+    --text-muted: #6c757d;
+
+    --border-soft: #dee2e6;
+
+    --accent-primary: #0d6efd;
+    --accent-success: #198754;
+    --accent-warning: #ffc107;
+    --accent-danger: #dc3545;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-main: #0f1115;
+        --bg-card: #171a1f;
+        --bg-soft: #1f2329;
+
+        --text-main: #e6e8eb;
+        --text-muted: #9aa0a6;
+
+        --border-soft: #2b3036;
+
+        --accent-primary: #4c8dff;
+        --accent-success: #3ddc97;
+        --accent-warning: #ffd166;
+        --accent-danger: #ff6b6b;
+    }
+}
+
+.diente {
+    fill: var(--bg-soft);
+    stroke: var(--border-soft);
+}
+
+
+/* ESTADOS */
+.diente.sano       { fill: #e9ecef; }
+.diente.caries     { fill: var(--accent-danger); }
+.diente.obturado   { fill: var(--accent-primary); }
+.diente.endodoncia { fill: var(--accent-warning); }
+.diente.extraido   { fill: #6c757d; opacity: .35; }
+
+
+.legend-box {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #333;
+    display: inline-block;
+}
+
+.legend-box.sano { background: #e6e6e6; }
+.legend-box.caries { background: #d9534f; }
+.legend-box.obturado { background: #5bc0de; }
+.legend-box.endodoncia { background: #f0ad4e; }
+.legend-box.extraido { background: #adb5bd; opacity: .4; }
+
+/* Card adaptable light / dark */
+.card-surface {
+    background-color: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+    .card-surface {
+        background-color: #101b2f; /* o #1e1e1e si quieres menos contraste */
+    }
+}
+
+/* Hover fila agenda */
+.agenda-row:hover {
+    background-color: #f9fafb; /* light */
+}
+
+.agenda-row:hover .agenda-text {
+    color: #111827; /* negro */
+}
+
+@media (prefers-color-scheme: dark) {
+    .agenda-row:hover {
+        background-color: #1f2933; /* gris oscuro elegante */
+    }
+
+    .agenda-row:hover .agenda-text {
+        color: #ffffff; /* blanco sólido */
+    }
+}
+
+
+
+.odontograma-wrapper {
+    max-width: 1100px;
+    width: 100%;
+}
+
+.legend-container {
+    margin-top: 20px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.legend-box {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    border: 1px solid #333;
+}
+
+/* Estados */
+.legend-box.sano { background: #fff; }
+.legend-box.caries { background: #e53935; }
+.legend-box.obturado { background: #1e88e5; }
+.legend-box.endodoncia { background: #f0ad4e; }
+.legend-box.extraido {
+    background: repeating-linear-gradient(
+        45deg,
+        #999,
+        #999 3px,
+        #fff 3px,
+        #fff 6px
+    );
+}
+
+
+
+.card {
+    border-radius: 12px;
+}
+
+svg {
+    background: var(--bg-soft);
+    border-radius: 8px;
+}
+
+
+
+
+/* =========================
+   AUTO DARK / LIGHT MODE
+   ========================= */
+
+@media (prefers-color-scheme: dark) {
+
+    body {
+        background-color: #121212;
+        color: #e0e0e0;
+    }
+
+    /* TITULOS */
+    h1, h2, h3, h4, h5, h6 {
+        color: #f5f5f5;
+    }
+
+    /* CARDS */
+    .card {
+        background-color: #1e1e1e;
+        border-color: #2a2a2a;
+        color: #e0e0e0;
+    }
+
+    .card-header {
+        background-color: #252525;
+        border-bottom: 1px solid #333;
+    }
+
+    /* TABLAS */
+.table {
+    color: var(--text-main);
+}
+
+.table thead {
+    background-color: var(--bg-soft);
+    color: var(--text-muted);
+}
+
+
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: rgba(255,255,255,0.03);
+    }
+
+    .table-warning {
+        background-color: rgba(255,193,7,0.2) !important;
+        color: #fff;
+    }
+
+    /* MODALES */
+    .modal-content {
+        background-color: #1e1e1e;
+        color: #e0e0e0;
+    }
+
+    .modal-header,
+    .modal-footer {
+        border-color: #333;
+    }
+
+    /* INPUTS */
+    .form-control,
+    .form-select {
+        background-color: #2a2a2a;
+        color: #e0e0e0;
+        border-color: #444;
+    }
+
+    .form-control::placeholder {
+        color: #aaa;
+    }
+
+    /* BOTONES */
+    .btn-primary {
+        background-color: #0d6efd;
+        border-color: #0d6efd;
+    }
+
+    /* BADGES */
+    .badge {
+        font-weight: 500;
+    }
+
+    /* SVG ODONTOGRAMA */
+    .diente path {
+        fill: #2a2a2a;
+        stroke: #e0e0e0;
+    }
+
+    .diente.sano path { fill: #fff; }
+    .diente.caries path { fill: #dc3545; }
+    .diente.obturado path { fill: #0d6efd; }
+    .diente.endodoncia path { fill: #ffc107; }
+    .diente.extraido path { fill: #adb5bd; }
+
+}
+
+/* =========================
+   NAVBAR DARK MODE FIX
+   ========================= */
+
+@media (prefers-color-scheme: dark) {
+
+    .navbar {
+        background-color: #1e1e1e !important;
+        border-bottom: 1px solid #2a2a2a;
+    }
+
+    .navbar-brand {
+        color: #ffffff !important;
+    }
+
+    .navbar-nav .nav-link {
+        color: #d0d0d0 !important;
+    }
+
+    .navbar-nav .nav-link:hover,
+    .navbar-nav .nav-link:focus {
+        color: #ffffff !important;
+    }
+
+    .navbar-nav .nav-link.active {
+        color: #0d6efd !important;
+    }
+
+    /* Dropdown */
+    .dropdown-menu {
+        background-color: #1e1e1e;
+        border-color: #333;
+    }
+
+    .dropdown-item {
+        color: #e0e0e0;
+    }
+
+    .dropdown-item:hover,
+    .dropdown-item:focus {
+        background-color: #2a2a2a;
+        color: #ffffff;
+    }
+
+    .dropdown-divider {
+        border-color: #333;
+    }
+
+    /* Botón hamburguesa */
+    .navbar-toggler {
+        border-color: #444;
+    }
+
+    .navbar-toggler-icon {
+        filter: invert(1);
+    }
+}
+
+/* Resaltado temporal del diente */
+.diente-resaltado path {
+    stroke: #ffc107 !important;
+    stroke-width: 3;
+    fill: #fff3cd !important;
+    transition: all 0.3s ease;
+}
+.fila-historia.table-active {
+    background-color: rgba(255, 193, 7, 0.15) !important;
+}
+
+
+/* NORMAL */
+.odontograma-svg .diente path {
+    stroke: #333;
+    stroke-width: 1;
+}
+
+/* ORTODONCIA */
+.odontograma-svg.ortodoncia .diente path {
+    stroke: #0d6efd;
+    stroke-width: 1;
+}
+
+
+
+
+
+
+
+
+
+/*------------------------------------------*/
+/* ===== ESTILO CLÍNICA DENTAL PREMIUM ===== */
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+}
+
+
+.card {
+    background-color: var(--bg-card);
+    border-radius: 14px;
+    border: 1px solid var(--border-soft);
+    color: var(--text-main);
+}
+
+.card-header {
+    border-radius: 14px 14px 0 0;
+    font-weight: 600;
+    letter-spacing: .3px;
+}
+
+.shadow-soft {
+    box-shadow:
+        0 8px 24px rgba(0,0,0,.15),
+        inset 0 1px 0 rgba(255,255,255,.02);
+}
+
+.table thead th {
+    font-size: .85rem;
+    text-transform: uppercase;
+    color: #6c757d;
+    letter-spacing: .04em;
+}
+
+.table tbody tr:hover {
+    background-color: color-mix(in srgb, var(--accent-primary) 10%, transparent);
+}
+
+
+.badge-premium {
+    background-color: #20c997;
+    color: white;
+    font-weight: 500;
+    padding: 6px 10px;
+    border-radius: 20px;
+}
+
+.badge-normal {
+    background-color: #adb5bd;
+    color: white;
+    border-radius: 20px;
+}
+
+.btn-icon {
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.header-title {
+    font-weight: 600;
+    letter-spacing: .3px;
+}
+
+.subtitle {
+    color: var(--text-muted);
+}
+
+
+.table td {
+    vertical-align: middle;
+}
+
+.card-body h6 {
+    font-weight: 600;
+}
+
+.resaltado-temporal path {
+    fill: #fff3cd !important;
+    stroke: #ffc107 !important;
+    stroke-width: 3 !important;
+}
+
+
+
+
+.tabs-premium .nav-link {
+    color: var(--text-muted);
+}
+
+.tabs-premium .nav-link.active {
+    background: color-mix(in srgb, var(--accent-primary) 25%, transparent);
+    color: var(--text-main);
+}
+
+
+.tabs-premium .nav-link:hover {
+    background: rgba(13, 202, 240, 0.5);
+    color: #000;
+}
+
+.tab-content-premium {
+    border-radius: 0 10px 10px 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,.08);
+    background: #fff;
+}
+
+
+
+.ortho-stepper {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.ortho-step {
+    display: flex;
+    gap: 14px;
+    padding: 14px 0;
+    position: relative;
+}
+
+.ortho-step:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: 18px;
+    top: 44px;
+    bottom: -14px;
+    width: 2px;
+    background: #dee2e6;
+}
+
+.ortho-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #adb5bd;
+    color: white;
+    flex-shrink: 0;
+}
+
+.ortho-step.completed .ortho-icon {
+    background: #198754;
+}
+
+.ortho-step.active .ortho-icon {
+    background: #0d6efd;
+}
+
+.ortho-content {
+    flex-grow: 1;
+}
+
+.ortho-title {
+    font-weight: 600;
+}
+
+.ortho-meta {
+    font-size: 12px;
+    color: #6c757d;
+}
+
+.ortho-summary {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.ortho-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #0dcaf0, #0d6efd);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+}
+
+.ortho-main {
+    flex-grow: 1;
+}
+
+.ortho-label {
+    font-size: 11px;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+}
+
+.ortho-value {
+    font-weight: 600;
+}
+
+.badge-ortho {
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 12px;
+}
+
+.ortho-start {
+    background: linear-gradient(180deg, #f8f9fa, #ffffff);
+}
+
+.ortho-start-title {
+    font-weight: 600;
+}
+
+.ortho-hint {
+    font-size: 12px;
+    color: #6c757d;
+}
+
+.btn-ortho-primary {
+    border-radius: 20px;
+    padding: 6px 18px;
+    font-size: 13px;
+}
+
+
+.plan-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.plan-meta {
+    font-size: 12px;
+    color: #6c757d;
+}
+
+.plan-kpi {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+}
+
+.plan-kpi .label {
+    font-size: 11px;
+    color: #6c757d;
+}
+
+.plan-kpi .value {
+    font-weight: 600;
+}
+
+.badge-plan {
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 12px;
+}
+
+.table thead th {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+}
+
+
+.payment-kpi {
+    border-radius: 14px;
+    padding: 16px;
+    text-align: center;
+}
+
+.payment-kpi .label {
+    font-size: 11px;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+}
+
+.payment-kpi .value {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.payment-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.payment-empty {
+    padding: 40px 0;
+}
+
+.table-payments thead th {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+}
+
+
+
+/* =========================
+   DARK MODE – TABLA PACIENTES
+   ========================= */
+@media (prefers-color-scheme: dark) {
+
+    /* Card */
+    .card {
+        background-color: #0f172a; /* slate-900 */
+        color: #e5e7eb;
+    }
+
+    /* Table base */
+    .table {
+        color: #e5e7eb;
+        --bs-table-bg: transparent;
+        --bs-table-striped-bg: rgba(255,255,255,0.03);
+        --bs-table-hover-bg: rgba(255,255,255,0.05);
+        --bs-table-border-color: #1e293b;
+    }
+
+    .table td,
+    .table th {
+        border-color: #1e293b;
+    }
+
+    /* Header (table-info override) */
+    .table-info {
+        --bs-table-bg: #1e3a8a;   /* azul oscuro */
+        --bs-table-color: #ffffff;
+        --bs-table-border-color: #1e293b;
+    }
+/* =========================
+   TEXTO TABLA – LIGHT / DARK
+   ========================= */
+
+/* Default (light mode) */
+.table td,
+.table th {
+    color: #162034; /* negro elegante */
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+
+    .table td,
+    .table th {
+        color: #e5e7eb; /* gris claro / casi blanco */
+    }
+
+    /* Texto secundario (muted) */
+    .table .text-muted {
+        color: #9ca3af !important;
+    }
+
+    /* Links dentro de tabla */
+    .table a {
+        color: #e5e7eb;
+    }
+
+    .table a:hover {
+        color: #ffffff;
+    }
+}
+
+/* =========================
+   DARK MODE – DATOS DE LA CITA
+   ========================= */
+@media (prefers-color-scheme: dark) {
+
+    /* Card base */
+    .card {
+        background-color: #0f172a; /* slate-900 */
+        color: #e5e7eb;
+    }
+
+    /* Header */
+    .card-header {
+        background-color: #1e3a8a !important; /* azul oscuro */
+        color: #ffffff;
+        border-bottom: 1px solid #1e293b;
+    }
+
+    /* List group */
+    .list-group {
+        --bs-list-group-bg: transparent;
+        --bs-list-group-color: #e5e7eb;
+        --bs-list-group-border-color: #1e293b;
+    }
+
+    .list-group-item {
+        background-color: transparent;
+        color: #e5e7eb;
+        border-color: #1e293b;
+    }
+
+    /* Texto fuerte */
+    .list-group-item strong {
+        color: #ffffff;
+    }
+
+    /* Badges */
+    .badge {
+        color: #ffffff;
+    }
+
+    .badge.bg-warning {
+        background-color: #facc15;
+        color: #111827;
+    }
+}
+
+/* =========================================================
+   🌙 DARK MODE GLOBAL – BOOTSTRAP PREMIUM
+   Aplica a TODAS las vistas (cards, tabs, tablas, forms)
+========================================================= */
+@media (prefers-color-scheme: dark) {
+
+    /* =====================
+       BASE
+    ===================== */
+    body {
+        background-color: #020617; /* slate-950 */
+        color: #e5e7eb;
+    }
+
+    .container {
+        color: #e5e7eb;
+    }
+
+    /* =====================
+       CARDS
+    ===================== */
+    .card {
+        background-color: #0f172a; /* slate-900 */
+        color: #e5e7eb;
+        border: 1px solid #1e293b;
+    }
+
+    .card-body {
+        background-color: transparent;
+    }
+
+    .card-header {
+        background-color: #020617 !important;
+        color: #ffffff;
+        border-bottom: 1px solid #1e293b;
+    }
+
+    /* headers con bg-* */
+    .card-header.bg-info,
+    .card-header.bg-warning,
+    .card-header.bg-success,
+    .card-header.bg-secondary {
+        background-color: rgba(255,255,255,0.05) !important;
+        color: #ffffff;
+    }
+
+    /* =====================
+       TABS
+    ===================== */
+    .nav-tabs {
+        border-bottom: 1px solid #1e293b;
+    }
+
+    .nav-tabs .nav-link {
+        background: transparent;
+        color: #94a3b8;
+        border: none;
+    }
+
+    .nav-tabs .nav-link.active {
+        background-color: #0f172a;
+        color: #ffffff;
+        border-bottom: 2px solid #3b82f6;
+    }
+
+    .tab-content {
+        background-color: #0f172a;
+        border-radius: 0 0 12px 12px;
+    }
+
+    /* =====================
+       TABLES
+    ===================== */
+    .table {
+        --bs-table-bg: transparent;
+        --bs-table-color: #e5e7eb;
+        --bs-table-border-color: #1e293b;
+    }
+
+    .table thead {
+        background-color: #020617 !important;
+        color: #cbd5f5;
+    }
+
+    .table tbody tr:hover {
+        background-color: rgba(255,255,255,0.04);
+    }
+
+    .table td,
+    .table th {
+        border-color: #1e293b;
+    }
+
+    /* =====================
+       LIST GROUP
+    ===================== */
+    .list-group-item {
+        background-color: transparent;
+        color: #e5e7eb;
+        border-color: #1e293b;
+    }
+
+    /* =====================
+       FORMS
+    ===================== */
+    .form-control,
+    .form-select {
+        background-color: #020617;
+        color: #ffffff;
+        border-color: #1e293b;
+    }
+
+    .form-control::placeholder {
+        color: #64748b;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+        background-color: #020617;
+        color: #ffffff;
+        border-color: #3b82f6;
+        box-shadow: none;
+    }
+
+    /* =====================
+       TEXT COLORS
+    ===================== */
+    .text-muted {
+        color: #94a3b8 !important;
+    }
+
+    .fw-semibold,
+    .fw-bold,
+    strong {
+        color: #ffffff;
+    }
+
+    /* =====================
+       DROPDOWNS
+    ===================== */
+    .dropdown-menu {
+        background-color: #0f172a;
+        border-color: #1e293b;
+    }
+
+    .dropdown-item {
+        color: #e5e7eb;
+    }
+
+    .dropdown-item:hover {
+        background-color: rgba(255,255,255,0.05);
+        color: #ffffff;
+    }
+
+    /* =====================
+       MODALS
+    ===================== */
+    .modal-content {
+        background-color: #0f172a;
+        color: #e5e7eb;
+        border-color: #1e293b;
+    }
+
+    .modal-header {
+        border-bottom: 1px solid #1e293b;
+    }
+
+    .modal-footer {
+        border-top: 1px solid #1e293b;
+    }
+
+    /* =====================
+       BADGES (mejor contraste)
+    ===================== */
+    .badge.bg-light {
+        background-color: #1e293b !important;
+        color: #e5e7eb !important;
+    }
+}
+
+
+.select2-container .select2-selection--single {
+    height: 38px;
+    padding: 5px 10px;
+    border: 1px solid #ced4da;
+    border-radius: .375rem;
+}
+
+.select2-selection__rendered {
+    line-height: 26px !important;
+}
+
+.select2-selection__arrow {
+    height: 36px;
+}
+
+
+
+
+
+}
