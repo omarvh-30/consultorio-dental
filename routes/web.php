@@ -110,7 +110,7 @@ Route::middleware('auth')->group(function () {
         ->name('pacientes.expediente');
 
     Route::get('/citas/crear/{paciente}', [CitaController::class, 'create'])
-    ->name('citas.create');
+    ->name('citas.create.paciente');
 
 
 });
