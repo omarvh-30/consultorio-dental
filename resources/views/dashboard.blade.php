@@ -35,7 +35,7 @@
                 <span class="text-sm font-semibold">Nuevo paciente</span>
             </a>
 
-            <a href="{{ route('citas.create') }}"
+            <a href="{{ route('citas.create.paciente') }}"
                class="flex items-center gap-3 px-5 py-3 rounded-xl border
                       transition hover:bg-indigo-50 hover:-translate-y-0.5 hover:shadow">
                 <i class="fa-solid fa-calendar-plus text-indigo-600 text-lg"></i>

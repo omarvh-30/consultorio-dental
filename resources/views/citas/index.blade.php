@@ -13,7 +13,7 @@
             <div class="subtitle">Gestión de citas clínicas</div>
         </div>
 
-        <a href="{{ route('citas.create') }}" class="btn btn-primary shadow-sm">
+        <a href="{{ route('citas.create.paciente') }}" class="btn btn-primary shadow-sm">
             <i class="bi bi-person-plus"></i> Nueva Cita
         </a>
     </div>
