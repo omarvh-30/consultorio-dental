@@ -15,7 +15,11 @@ class HistoriaOdontologica extends Model
         'paciente_id',
         'diente',
         'estado',
-        'observaciones'
+        'observaciones',
+        'fecha'
+    ];
+    protected $casts = [
+        'fecha' => 'datetime',
     ];
 
     public function paciente()

@@ -288,7 +288,7 @@ public function guardarOdontograma(Request $request)
         'diente' => $request->diente,
         'estado' => $request->estado,
         'observaciones' => $request->observaciones,
-        'fecha' => now()
+        'fecha' => Carbon::now('America/Mexico_City')
     ]);
 
     return response()->json([
