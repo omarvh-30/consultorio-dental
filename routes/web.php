@@ -9,7 +9,7 @@ use App\Http\Controllers\OrtodonciaController;
 use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
-    return redirect()->route('login');
+    return view('welcome');
 });
 
 
@@ -110,7 +110,7 @@ Route::middleware('auth')->group(function () {
         ->name('pacientes.expediente');
 
     Route::get('/citas/crear/{paciente}', [CitaController::class, 'create'])
-    ->name('citas.create.paciente');
+    ->name('citas.create');
 
 
 });
