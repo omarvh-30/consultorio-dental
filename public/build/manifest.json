@@ -9,9 +9,18 @@
     ]
   },
   "resources/js/app.js": {
-    "file": "assets/app-DHcIeurR.js",
+    "file": "assets/app-D3yDyfwc.js",
     "name": "app",
     "src": "resources/js/app.js",
+    "isEntry": true,
+    "imports": [
+      "resources/js/odontograma.js"
+    ]
+  },
+  "resources/js/odontograma.js": {
+    "file": "assets/odontograma-6rNbcB9a.js",
+    "name": "odontograma",
+    "src": "resources/js/odontograma.js",
     "isEntry": true
   }
 }
