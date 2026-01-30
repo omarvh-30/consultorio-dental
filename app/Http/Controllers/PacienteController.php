@@ -13,7 +13,7 @@ use App\Models\TreatmentCatalog;
 use App\Models\TreatmentPlan;
 use App\Models\TreatmentPlanItem;
 use App\Models\TreatmentPayment;
-
+use Illuminate\Support\Facades\Log;
 
 class PacienteController extends Controller
 {
@@ -253,48 +253,45 @@ public function odontograma(Paciente $paciente)
 
 
 
+
+
 public function guardarOdontograma(Request $request)
 {
-    $validator = Validator::make($request->all(), [
-        'paciente_id' => 'required|exists:pacientes,id',
-        'diente' => 'required|string',
-        'estado' => 'required|string',
-        'observaciones' => 'nullable|string',
-    ]);
+    try {
+        Odontograma::updateOrCreate(
+            [
+                'paciente_id' => $request->paciente_id,
+                'diente' => $request->diente,
+            ],
+            [
+                'estado' => $request->estado,
+                'requiere_tratamiento' => $request->estado !== 'extraido'
+            ]
+        );
 
-    if ($validator->fails()) {
+        HistoriaClinica::create([
+            'paciente_id' => $request->paciente_id,
+            'diagnostico_general' =>
+                "Diente {$request->diente} marcado como {$request->estado}",
+            'plan_tratamiento' => $request->observaciones
+        ]);
+
+        return response()->json(['success' => true]);
+
+    } catch (\Throwable $e) {
+
+        Log::error('ERROR ODONTOGRAMA', [
+            'message' => $e->getMessage(),
+            'trace' => $e->getTraceAsString()
+        ]);
+
         return response()->json([
             'success' => false,
-            'errors' => $validator->errors()
-        ], 422);
+            'error' => $e->getMessage()
+        ], 500);
     }
-
-    // Estado actual del diente
-    Odontograma::updateOrCreate(
-    [
-        'paciente_id' => $request->paciente_id,
-        'diente' => $request->diente,
-    ],
-    [
-        'estado' => $request->estado,
-        'requiere_tratamiento' => $request->estado !== 'extraido'
-    ]
-    );
-
-
-    // Historia clínica (registro legal)
-    HistoriaClinica::create([
-        'paciente_id' => $request->paciente_id,
-        'diagnostico_general' =>
-        "Diente {$request->diente} marcado como {$request->estado}",
-        'plan_tratamiento' => $request->observaciones
-    ]);
-
-
-    return response()->json([
-        'success' => true
-    ]);
 }
+
 
 public function exportarPdf(Paciente $paciente)
 {
