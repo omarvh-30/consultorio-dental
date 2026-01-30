@@ -283,12 +283,13 @@ public function guardarOdontograma(Request $request)
 
 
     // Historia clínica (registro legal)
-    HistoriaOdontologica::create([
+    HistoriaClinica::create([
         'paciente_id' => $request->paciente_id,
-        'diente' => $request->diente,
-        'estado' => $request->estado,
-        'observaciones' => $request->observaciones
+        'diagnostico_general' =>
+        "Diente {$request->diente} marcado como {$request->estado}",
+        'plan_tratamiento' => $request->observaciones
     ]);
+
 
     return response()->json([
         'success' => true
