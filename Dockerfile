@@ -12,11 +12,11 @@ RUN npm run build
 
 
 ############################
-# 2️⃣ Backend PHP
+# 2️⃣ Backend PHP (FrankenPHP)
 ############################
 FROM dunglas/frankenphp:php8.2
 
-# Instalar extensiones PHP necesarias
+# Extensiones PHP necesarias
 RUN install-php-extensions \
     gd \
     mbstring \
@@ -30,12 +30,15 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 WORKDIR /app
 COPY . .
 
-# Copiar assets compilados
+# Assets compilados
 COPY --from=node-build /app/public/build ./public/build
 
 # Dependencias PHP
 RUN composer install --no-dev --optimize-autoloader
 
-EXPOSE 8080
+# ⚠️ MUY IMPORTANTE
+ENV APP_ENV=production
+ENV APP_DEBUG=false
 
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8080"]
+# FrankenPHP escucha automáticamente
+EXPOSE 8080
