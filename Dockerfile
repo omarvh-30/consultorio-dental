@@ -1,16 +1,12 @@
 FROM dunglas/frankenphp:php8.2
 
-# Dependencias del sistema necesarias para extensiones PHP
-RUN apt-get update && apt-get install -y \
-    libpng-dev \
-    libjpeg-dev \
-    libfreetype6-dev \
-    libonig-dev \
-    libzip-dev \
-    zip unzip git \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd mbstring pdo_mysql zip xml \
-    && rm -rf /var/lib/apt/lists/*
+# Instalar extensiones PHP correctamente (forma recomendada)
+RUN install-php-extensions \
+    gd \
+    mbstring \
+    pdo_mysql \
+    zip \
+    xml
 
 # Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
