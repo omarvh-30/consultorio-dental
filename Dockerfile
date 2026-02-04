@@ -35,4 +35,10 @@ RUN composer install --no-dev --optimize-autoloader
 ENV APP_ENV=production
 ENV APP_DEBUG=false
 
+RUN php artisan config:clear \
+ && php artisan view:clear \
+ && php artisan route:clear \
+ && php artisan optimize
+
+
 EXPOSE 8080
