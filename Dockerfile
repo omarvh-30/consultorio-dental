@@ -1,6 +1,22 @@
+############################
+# 1️⃣ Build frontend
+############################
+FROM node:20-alpine AS node-build
+
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY resources ./resources
+COPY vite.config.* ./
+RUN npm run build
+
+
+############################
+# 2️⃣ Backend PHP
+############################
 FROM dunglas/frankenphp:php8.2
 
-# Instalar extensiones PHP correctamente (forma recomendada)
+# Instalar extensiones PHP necesarias
 RUN install-php-extensions \
     gd \
     mbstring \
@@ -12,14 +28,13 @@ RUN install-php-extensions \
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 WORKDIR /app
-
 COPY . .
+
+# Copiar assets compilados
+COPY --from=node-build /app/public/build ./public/build
 
 # Dependencias PHP
 RUN composer install --no-dev --optimize-autoloader
-
-# Assets frontend
-RUN npm install && npm run build
 
 EXPOSE 8080
 
