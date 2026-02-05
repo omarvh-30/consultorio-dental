@@ -46,7 +46,7 @@ RUN apt-get update && apt-get install -y \
     libdrm2 \
     && rm -rf /var/lib/apt/lists/*
 
-RUN npm install -g puppeteer-core    
+RUN npm install -g puppeteer    
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
