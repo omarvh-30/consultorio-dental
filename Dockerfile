@@ -26,6 +26,27 @@ RUN install-php-extensions \
     zip \
     xml
 
+# 👇 Agregar Node
+RUN apt-get update && apt-get install -y \
+    nodejs \
+    npm \
+    chromium \
+    ca-certificates \
+    fonts-liberation \
+    libatk-bridge2.0-0 \
+    libgtk-3-0 \
+    libx11-xcb1 \
+    libxcomposite1 \
+    libxdamage1 \
+    libxrandr2 \
+    libgbm1 \
+    libnss3 \
+    libasound2 \
+    libxshmfence1 \
+    libdrm2 \
+    && rm -rf /var/lib/apt/lists/*
+
+
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 WORKDIR /app

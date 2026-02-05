@@ -52,13 +52,19 @@ class PacientePdfController extends Controller
 
         $path = "temp/odontograma_{$paciente->id}.png";
 
+        if (!file_exists(storage_path('app/public/temp'))) {
+            mkdir(storage_path('app/public/temp'), 0755, true);
+        }
+
         Browsershot::html($html)
+            ->setNodeBinary('/usr/bin/node')
+            ->setNpmBinary('/usr/bin/npm')
+            ->setChromePath('/usr/bin/chromium')
             ->noSandbox()
-            ->setNodeBinary(env('NODE_BINARY'))
-            ->setNpmBinary(env('NPM_BINARY'))
             ->windowSize(1000, 450)
             ->transparentBackground()
             ->save(storage_path("app/public/{$path}"));
+
 
         // 5️⃣ PDF
         $pdf = Pdf::loadView('pacientes.pdf.odontograma', [
