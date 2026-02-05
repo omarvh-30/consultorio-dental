@@ -8,6 +8,7 @@ COPY package*.json ./
 RUN npm install
 COPY resources ./resources
 COPY vite.config.* ./
+
 RUN npm run build
 
 
@@ -27,6 +28,8 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 WORKDIR /app
 COPY . .
+
+COPY Caddyfile /app/Caddyfile 
 
 COPY --from=node-build /app/public/build ./public/build
 
