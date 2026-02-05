@@ -292,19 +292,6 @@ Planes Anteriores
                     Descargar
                 </a>
             </li>
-
-            <li><hr class="dropdown-divider"></li>
-
-            {{-- 📲 ENVIAR --}}
-            <li>
-                <a class="dropdown-item"
-                   onclick="enviarExpedienteWhatsapp()">
-
-                    <i class="fa-brands fa-whatsapp me-2 text-success"></i>
-                    Enviar por WhatsApp
-                </a>
-            </li>
-
         </ul>
 
     </div>
@@ -384,50 +371,6 @@ Planes Anteriores
 </div>
 
 </div>
-{{-- ========= JS ========= --}}
-<script>
-function enviarExpedienteWhatsapp() {
-
-    let url = "{{ route('pacientes.odontograma.pdf', $paciente->id) }}?view=1";
-
-    let ultimaCita =
-        "{{ $ultimaCita ? $ultimaCita->fecha_hora->format('d/m/Y H:i') : 'Sin citas registradas' }}";
-
-    let saldo =
-        "{{ $plan ? '$'.number_format($plan->saldo,2) : 'Sin plan' }}";
-
-    let proximaCita =
-        "{{ optional($paciente->citas()->where('fecha_hora','>',now())->first())->fecha_hora
-            ? $paciente->citas()->where('fecha_hora','>',now())->first()->fecha_hora->format('d/m/Y H:i')
-            : 'No programada' }}";
-
-    let texto =
-`🦷 ORTHO CARE – Expediente Dental
-
-👤 Paciente:
-{{ $paciente->nombre }}
-
-📅 Última cita:
-${ultimaCita}
-
-💰 Saldo actual:
-${saldo}
-
-📆 Próxima cita:
-${proximaCita}
-
-📄 Expediente completo:
-${url}
-
-Si tienes dudas con tu tratamiento,
-estamos para apoyarte 😊`;
-
-    window.open(
-        'https://wa.me/?text=' + encodeURIComponent(texto),
-        '_blank'
-    );
-}
-</script>
 
 
 
