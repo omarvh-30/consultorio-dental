@@ -4,10 +4,12 @@
 FROM node:20-alpine AS node-build
 
 WORKDIR /app
+
 COPY package*.json ./
 RUN npm install
-COPY resources ./resources
-COPY vite.config.* ./
+
+# 👇 COPIAMOS TODO PARA QUE TAILWIND VEA LAS VISTAS
+COPY . .
 
 RUN npm run build
 
@@ -29,8 +31,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 WORKDIR /app
 COPY . .
 
-COPY Caddyfile /app/Caddyfile 
-
+COPY Caddyfile /app/Caddyfile
 COPY --from=node-build /app/public/build ./public/build
 
 RUN composer install --no-dev --optimize-autoloader
