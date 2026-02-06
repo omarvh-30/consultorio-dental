@@ -70,35 +70,64 @@
 
 
 
-{{-- ===== BADGE PACIENTE ORTODONCIA ===== --}}
-@if($paciente->es_ortodoncia == 1)
+{{-- ===== BADGE TRATAMIENTOS DEL PACIENTE ===== --}}
+@if($paciente->es_ortodoncia || $paciente->es_protesis)
 <div class="card border-0 shadow-sm mb-3">
     <div class="card-body d-flex align-items-center">
 
-        <div class="me-3">
-            <i class="fa-solid fa-tooth fa-2x text-primary"></i>
+        {{-- ICONOS --}}
+        <div class="me-3 d-flex align-items-center gap-2">
+            @if($paciente->es_ortodoncia)
+                <i class="fa-solid fa-tooth fa-2x text-primary"></i>
+            @endif
+
+            @if($paciente->es_protesis)
+                <i class="fa-solid fa-teeth-open fa-2x text-warning"></i>
+            @endif
         </div>
 
+        {{-- CONTENIDO --}}
         <div class="flex-grow-1">
             <div class="fw-semibold">
-                Paciente en tratamiento de ortodoncia
+                @if($paciente->es_ortodoncia && $paciente->es_protesis)
+                    Paciente con tratamiento de ortodoncia y prótesis
+                @elseif($paciente->es_ortodoncia)
+                    Paciente en tratamiento de ortodoncia
+                @else
+                    Paciente con tratamiento protésico
+                @endif
             </div>
 
-            <div class="small text-muted mt-1 d-flex align-items-center flex-wrap gap-2">
-                <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3">
-                    Tratamiento activo
-                </span>
-
+<div class="small text-muted mt-1 d-flex align-items-center gap-2 flex-wrap">
                 <span>
-                    Seguimiento clínico desde la pestaña de ortodoncia
+                    Seguimiento clínico desde las pestañas correspondientes
                 </span>
+</div>
+            <div class="small text-muted mt-1 d-flex align-items-center gap-2 flex-wrap">
+
+                @if($paciente->es_ortodoncia)
+                    <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3">
+                        Ortodoncia activa
+                    </span>
+                @endif
+
+                @if($paciente->es_protesis)
+                    <span class="badge bg-warning bg-opacity-10 text-warning rounded-pill px-3">
+                        Prótesis activa
+                    </span>
+                @endif
+
             </div>
         </div>
 
     </div>
 </div>
-
 @endif
+
+
+
+
+
 
 
 
@@ -220,6 +249,18 @@ Planes Anteriores
     </button>
 </li>
 @endif
+
+@if($paciente->es_protesis == 1)
+<li class="nav-item">
+    <button class="nav-link"
+            data-bs-toggle="tab"
+            data-bs-target="#protesis">
+        <i class="fa-solid fa-teeth-open me-1"></i>
+        Prótesis
+    </button>
+</li>
+@endif
+
 </ul>
 
 <div class="tab-content tab-content-premium p-3">
@@ -1822,6 +1863,16 @@ Guardar Pago
     @endif
 
 </div>
+
+
+{{-- ========= TAB 6 : PRÓTESIS ========= --}}
+@if($paciente->es_protesis == 1)
+<div class="tab-pane fade" id="protesis">
+
+    @include('pacientes.protesis.index')
+
+</div>
+@endif
 
 
 @endsection

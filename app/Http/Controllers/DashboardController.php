@@ -49,6 +49,8 @@ public function index()
     // ORTODONCIA ACTIVA
     $ortodonciaActiva = Paciente::where('es_ortodoncia', true)->count();
 
+    // Contar pacientes con prótesis activa
+    $protesisActiva = Paciente::where('es_protesis', true)->count();
 
     return view('dashboard', compact(
         'citasHoy',
@@ -57,7 +59,8 @@ public function index()
         'totalPacientes',
         'citasHoyCount',
         'proximaCita',
-        'ortodonciaActiva'
+        'ortodonciaActiva',
+        'protesisActiva'
     ));
 
 }

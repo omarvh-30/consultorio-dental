@@ -146,22 +146,45 @@
         </div>
     </div>
 </div>
-
 {{-- ===== TIPO DE PACIENTE ===== --}}
 <div class="card shadow-soft mb-4">
     <div class="card-body">
-        <input type="hidden" name="es_ortodoncia" value="0">
 
-        <div class="form-check form-switch">
-            <input class="form-check-input"
-                   type="checkbox"
-                   name="es_ortodoncia"
-                   id="es_ortodoncia"
-                   value="1"
-                   {{ old('es_ortodoncia', $paciente->es_ortodoncia ?? false) ? 'checked' : '' }}>
-            <label class="form-check-label fw-semibold" for="es_ortodoncia">
-                Paciente de Ortodoncia
-            </label>
+        <h6 class="fw-bold mb-3">Tipo de Paciente</h6>
+
+        <div class="d-flex align-items-center gap-8">
+
+            {{-- Ortodoncia --}}
+            <div class="form-check form-switch d-flex align-items-center gap-1 mb-0">
+                <input type="hidden" name="es_ortodoncia" value="0">
+                <input class="form-check-input"
+                       type="checkbox"
+                       name="es_ortodoncia"
+                       id="es_ortodoncia"
+                       value="1"
+                       {{ old('es_ortodoncia', $paciente->es_ortodoncia ?? false) ? 'checked' : '' }}>
+                <label class="form-check-label fw-semibold" for="es_ortodoncia">
+                    Ortodoncia
+                </label>
+                <i class="fa-solid fa-tooth fa-ls text-primary"></i>
+            </div>
+
+            {{-- Prótesis --}}
+            <div class="form-check form-switch d-flex align-items-center gap-1 mb-0">
+                <input type="hidden" name="es_protesis" value="0">
+                <input class="form-check-input"
+                       type="checkbox"
+                       name="es_protesis"
+                       id="es_protesis"
+                       value="1"
+                       {{ old('es_protesis', $paciente->es_protesis ?? false) ? 'checked' : '' }}>
+                <label class="form-check-label fw-semibold" for="es_protesis">
+                    Prótesis 
+                </label>
+                <i class="fa-solid fa-teeth-open fa-ls text-warning"></i>
+            </div>
+
         </div>
+
     </div>
 </div>

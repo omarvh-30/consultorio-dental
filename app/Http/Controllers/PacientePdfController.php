@@ -8,6 +8,7 @@ use App\Models\TreatmentPlan;
 use App\Models\Ortodoncia;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Spatie\Browsershot\Browsershot;
+use App\Models\Protesis;
 
 class PacientePdfController extends Controller
 {
@@ -131,4 +132,35 @@ class PacientePdfController extends Controller
 
         return $this->renderPdf($pdf, $nombre);
     }
+
+    /* =========================================================
+ | PDF TIMELINE PRÓTESIS
+ ========================================================= */
+public function protesisTimelinePdf(Protesis $protesis)
+{
+    // 🔒 Cargar relaciones necesarias
+    $protesis->load([
+        'paciente',
+        'seguimientos'
+    ]);
+
+    // 🧠 Detectar tipo de PDF
+    $esParcial = $protesis->estado !== 'finalizada';
+
+    // 📄 Generar PDF
+    $pdf = Pdf::loadView('pacientes.pdf.protesis-timeline', [
+        'protesis'  => $protesis,
+        'paciente'  => $protesis->paciente,
+        'fecha'     => now(),
+        'esParcial' => $esParcial,
+    ])->setPaper('a4', 'portrait');
+
+    // 📎 Nombre dinámico
+    $estado = $esParcial ? 'Parcial' : 'Final';
+    $nombre = "Timeline_Protesis_{$estado}_{$protesis->paciente->nombre}.pdf";
+
+    return $this->renderPdf($pdf, $nombre);
+}
+
+
 }

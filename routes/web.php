@@ -7,6 +7,7 @@ use App\Http\Controllers\PacientePdfController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\OrtodonciaController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProtesisController;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -84,6 +85,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/plan/aceptar',[PlanController::class, 'aceptar'])
         ->name('plan.aceptar');
 
+    Route::get('pacientes/protesis/{protesis}/pdf',[PacientePdfController::class, 'protesisTimelinePdf'])
+        ->name('protesis.timeline.pdf');
+
+
     // Ortodoncia
     Route::post('/ortodoncia/guardar', [OrtodonciaController::class, 'store'])
         ->name('ortodoncia.guardar');
@@ -110,8 +115,17 @@ Route::middleware('auth')->group(function () {
         ->name('pacientes.expediente');
 
     Route::get('/citas/crear/{paciente}', [CitaController::class, 'create'])
-    ->name('citas.create');
+        ->name('citas.create.paciente');
 
+    // Protesis
+    Route::post('/pacientes/{paciente}/protesis',[ProtesisController::class, 'store'])
+        ->name('protesis.store');
+
+    Route::post('/protesis/{protesis}/seguimiento',[ProtesisController::class, 'storeSeguimiento'])
+        ->name('protesis.seguimiento.store');
+
+    Route::post('/protesis/{protesis}/finalizar',[ProtesisController::class, 'finalizar'])
+        ->name('protesis.finalizar');
 
 });
 

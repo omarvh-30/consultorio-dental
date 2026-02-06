@@ -32,7 +32,8 @@ class Paciente extends Model
 
         'motivo_consulta',
 
-        'es_ortodoncia'
+        'es_ortodoncia',
+        'es_protesis',
     ];
 
     public function citas()
@@ -49,14 +50,22 @@ class Paciente extends Model
         return $this->hasMany(Odontograma::class);
     }
     protected $casts = [
-    'es_ortodoncia' => 'boolean',
+    'es_ortodoncia' => 'boolean', 'es_protesis' => 'boolean',
     ];
 
     public function ortodoncia()
     {
         return $this->hasOne(Ortodoncia::class);
     }
+    public function protesis()
+    {
+        return $this->hasMany(Protesis::class);
+    }
 
-
+    public function protesisActiva()
+    {
+        return $this->hasOne(Protesis::class)
+                    ->where('estado', 'en_proceso');
+    }
 
 }

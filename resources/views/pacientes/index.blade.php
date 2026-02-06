@@ -91,17 +91,30 @@
                             <td>{{ $paciente->telefono }}</td>
                             <td>{{ $paciente->email }}</td>
 
-                            <td class="text-center">
-                                @if($paciente->es_ortodoncia)
-                                    <i class="fa-solid fa-tooth text-primary"
-                                       data-bs-toggle="tooltip"
-                                       title="Ortodoncia"></i>
-                                @else
-                                    <i class="fa-solid fa-tooth text-secondary"
-                                       data-bs-toggle="tooltip"
-                                       title="Consulta general"></i>
-                                @endif
-                            </td>
+<td class="text-center">
+
+    @if($paciente->es_ortodoncia || $paciente->es_protesis)
+
+        @if($paciente->es_ortodoncia)
+            <i class="fa-solid fa-tooth text-primary me-1"
+               data-bs-toggle="tooltip"
+               title="Ortodoncia"></i>
+        @endif
+
+        @if($paciente->es_protesis)
+            <i class="fa-solid fa-teeth-open text-warning"
+               data-bs-toggle="tooltip"
+               title="Prótesis"></i>
+        @endif
+
+    @else
+        <i class="fa-solid fa-user text-secondary"
+           data-bs-toggle="tooltip"
+           title="Consulta general"></i>
+    @endif
+
+</td>
+
 
                             <td class="text-center">
                                 <a href="{{ route('pacientes.show', $paciente) }}"

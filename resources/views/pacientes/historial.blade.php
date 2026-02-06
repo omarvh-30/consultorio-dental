@@ -58,18 +58,30 @@
                     {{ $paciente->email ?? '—' }}
                 </div>
 
-                <div class="col-md-3">
-                    <strong>Tipo de paciente:</strong><br>
-                    @if($paciente->es_ortodoncia)
-                        <span class="badge bg-primary">
-                            <i class="fa-solid fa-tooth me-1"></i> Ortodoncia
-                        </span>
-                    @else
-                        <span class="badge bg-secondary">
-                            <i class="fa-solid fa-tooth me-1"></i> General
-                        </span>
-                    @endif
-                </div>
+<div class="col-md-3">
+    <strong>Tipo de paciente:</strong><br>
+
+    @if($paciente->es_ortodoncia || $paciente->es_protesis)
+
+        @if($paciente->es_ortodoncia)
+            <span class="badge bg-primary me-1">
+                <i class="fa-solid fa-tooth me-1"></i> Ortodoncia
+            </span>
+        @endif
+
+        @if($paciente->es_protesis)
+            <span class="badge bg-warning text-dark">
+                <i class="fa-solid fa-teeth-open me-1"></i> Prótesis
+            </span>
+        @endif
+
+    @else
+        <span class="badge bg-secondary">
+            <i class="fa-solid fa-user me-1"></i> General
+        </span>
+    @endif
+</div>
+
 
             </div>
         </div>

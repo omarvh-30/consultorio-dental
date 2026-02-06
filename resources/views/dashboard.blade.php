@@ -75,7 +75,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-10">
 
             {{-- ================= CARDS RESUMEN ================= --}}
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-6">
 
                 {{-- PACIENTES --}}
                 <div class="relative rounded-2xl card-surface
@@ -84,21 +84,21 @@
                     p-6
                     overflow-hidden
                     transition hover:-translate-y-1 hover:shadow-md">
-                            <div class="absolute top-0 left-0 w-full h-1 bg-gray-400"></div>
-                            <div class="flex items-center justify-between">
-                                <span class="text-sm text-gray-500">Pacientes</span>
-                                <i class="fa-solid fa-users text-gray-300"></i>
-                            </div>
-                            <p class="text-4xl font-bold tracking-tight mt-4">
-                                {{ $totalPacientes }}
-                            </p>
-                            <p class="text-xs uppercase tracking-wide text-gray-400 mt-1">
-                                Registrados
-                            </p>
-                        </div>
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gray-400"></div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-500">Pacientes</span>
+                        <i class="fa-solid fa-users text-gray-300"></i>
+                    </div>
+                    <p class="text-4xl font-bold tracking-tight mt-4">
+                        {{ $totalPacientes }}
+                    </p>
+                    <p class="text-xs uppercase tracking-wide text-gray-400 mt-1">
+                        Registrados
+                    </p>
+                </div>
 
-                        {{-- CITAS HOY --}}
-                        <div class="relative rounded-2xl card-surface
+                {{-- CITAS HOY --}}
+                <div class="relative rounded-2xl card-surface
                     border border-secondary-subtle
                     shadow-sm
                     p-6
@@ -164,7 +164,29 @@
                     </p>
                 </div>
 
+                {{-- PRÓTESIS --}}
+                <div class="relative rounded-2xl card-surface
+                    border border-secondary-subtle
+                    shadow-sm
+                    p-6
+                    overflow-hidden
+                    transition hover:-translate-y-1 hover:shadow-md">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-yellow-500"></div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-500">Prótesis activa</span>
+                        <i class="fa-solid fa-teeth-open text-yellow-400"></i>
+                    </div>
+                    <p class="text-4xl font-bold tracking-tight text-yellow-600 mt-4">
+                        {{ $protesisActiva }}
+                    </p>
+                    <p class="text-xs uppercase tracking-wide text-gray-400 mt-1">
+                        En tratamiento
+                    </p>
+                </div>
+
+
             </div>
+
 
 
             {{-- ================= AGENDA + ALERTAS ================= --}}
