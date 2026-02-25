@@ -1442,9 +1442,11 @@ Guardar Pago
                     <label class="ortho-label">Tipo de brackets</label>
                     <select name="tipo_brackets" class="form-select" required>
                         <option value="">Seleccione tipo</option>
-                        <option value="metalicos">Metálicos</option>
-                        <option value="esteticos">Estéticos</option>
-                        <option value="autoligado">Autoligado</option>
+                        <option value="metalicos">Metálicos Convencional</option>
+                        <option value="metalicos">Metálicos Autoligado</option>
+                        <option value="esteticos">Estéticos Ceramico</option>
+                        <option value="esteticos">Estéticos zirconia</option>
+                        <option value="autoligado">Estéticos Autoligado</option>
                         <option value="alineadores">Alineadores</option>
                     </select>
                 </div>
