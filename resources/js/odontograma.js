@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                              this.classList.contains('caries') ? 'caries' :
                                              this.classList.contains('obturado') ? 'obturado' :
                                              this.classList.contains('endodoncia') ? 'endodoncia' :
+                                             this.classList.contains('extraccion') ? 'extraccion' :
                                              this.classList.contains('extraido') ? 'extraido' : 'sano';
                     }
 

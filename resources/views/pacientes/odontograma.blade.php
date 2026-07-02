@@ -198,6 +198,9 @@
             <span class="badge bg-warning text-dark px-3 py-2">
                 <i class="fa-solid fa-bandage me-1"></i> Endodoncia
             </span>
+            <span class="badge bg-orange px-3 py-2" >
+                <i class="fa-solid fa-tooth me-1"></i> Extracción indicada
+            </span>
             <span class="badge bg-secondary px-3 py-2">
                 <i class="fa-solid fa-xmark me-1"></i> Extraído
             </span>
@@ -444,6 +447,7 @@ id="inputDiente">
 <option value="caries">Caries</option>
 <option value="obturado">Obturado</option>
 <option value="endodoncia">Endodoncia</option>
+<option value="extraccion">Extracción indicada</option>
 <option value="extraido">Extraído</option>
 
 </select>

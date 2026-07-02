@@ -277,7 +277,9 @@ public function guardarOdontograma(Request $request)
     ],
     [
         'estado' => $request->estado,
-        'requiere_tratamiento' => $request->estado !== 'extraido'
+        'requiere_tratamiento' => !in_array($request->estado, [
+            'sano',
+            'extraido'])
     ]
     );
 

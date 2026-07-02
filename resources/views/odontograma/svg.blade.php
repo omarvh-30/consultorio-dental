@@ -16,6 +16,7 @@ class="odontograma-svg {{ $paciente->es_ortodoncia ? 'ortodoncia' : '' }}" xmlns
 .caries path { fill: #e53935; }
 .obturado path { fill: #1e88e5; }
 .endodoncia path { fill: #f0ad4e; }
+.extraccion path { fill: #fb8c00; }
 .extraido path {fill: #adb5bd;}
 
 .ausente path {

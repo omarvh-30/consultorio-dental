@@ -19,6 +19,7 @@
     --accent-primary: #0d6efd;
     --accent-success: #198754;
     --accent-warning: #ffc107;
+    --accent-orange: #fd7e14;
     --accent-danger: #dc3545;
 }
 
@@ -36,6 +37,7 @@
         --accent-primary: #4c8dff;
         --accent-success: #3ddc97;
         --accent-warning: #ffd166;
+        --accent-orange: #ff9f43;
         --accent-danger: #ff6b6b;
     }
 }
@@ -52,7 +54,7 @@
 .diente.obturado   { fill: var(--accent-primary); }
 .diente.endodoncia { fill: var(--accent-warning); }
 .diente.extraido   { fill: #6c757d; opacity: .35; }
-
+.diente.extraccion { fill: var(--accent-orange);}
 
 .legend-box {
     width: 20px;
@@ -65,6 +67,7 @@
 .legend-box.caries { background: #d9534f; }
 .legend-box.obturado { background: #5bc0de; }
 .legend-box.endodoncia { background: #f0ad4e; }
+.legend-box.extraccion { background: #fd7e14; }
 .legend-box.extraido { background: #adb5bd; opacity: .4; }
 
 /* Card adaptable light / dark */
@@ -127,6 +130,7 @@
 .legend-box.caries { background: #e53935; }
 .legend-box.obturado { background: #1e88e5; }
 .legend-box.endodoncia { background: #f0ad4e; }
+.legend-box.extraccion { background: #fd7e14; }
 .legend-box.extraido {
     background: repeating-linear-gradient(
         45deg,
@@ -244,6 +248,7 @@ svg {
     .diente.caries path { fill: #dc3545; }
     .diente.obturado path { fill: #0d6efd; }
     .diente.endodoncia path { fill: #ffc107; }
+    .diente.extraccion path { fill: #fd7e14; }
     .diente.extraido path { fill: #adb5bd; }
 
 }
@@ -641,6 +646,10 @@ body {
     letter-spacing: .5px;
 }
 
+.bg-orange {
+    background-color: var(--accent-orange) !important;
+    color: #fff !important;
+}
 
 
 /* =========================
@@ -950,8 +959,10 @@ body {
     height: 36px;
 }
 
-
-
+.bg-orange {
+    background-color: var(--accent-orange) !important;
+    color: #fff !important;
+}
 
 
 }

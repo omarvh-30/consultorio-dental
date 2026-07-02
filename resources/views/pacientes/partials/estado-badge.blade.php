@@ -4,6 +4,7 @@ $colores = [
     'caries' => 'danger',
     'obturado' => 'primary',
     'endodoncia' => 'warning',
+    'extraccion' => 'orange', 
     'extraido' => 'dark',
 ];
 @endphp
