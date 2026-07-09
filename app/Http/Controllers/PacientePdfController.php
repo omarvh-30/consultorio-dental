@@ -9,6 +9,7 @@ use App\Models\Ortodoncia;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Spatie\Browsershot\Browsershot;
 use App\Models\Protesis;
+use App\Models\Limpieza;
 
 class PacientePdfController extends Controller
 {
@@ -160,6 +161,60 @@ public function protesisTimelinePdf(Protesis $protesis)
     $nombre = "Timeline_Protesis_{$estado}_{$protesis->paciente->nombre}.pdf";
 
     return $this->renderPdf($pdf, $nombre);
+}
+
+/* =========================================================
+ | PDF TIMELINE LIMPIEZAS
+ ========================================================= */
+public function limpiezasTimelinePdf(Limpieza $limpieza)
+{
+
+    // 🔒 Cargar relaciones necesarias
+    $limpieza->load([
+        'paciente',
+        'seguimientos.catalogo'
+    ]);
+
+
+    // 💰 Calcular totales reales cobrados
+    $totalAplicado = $limpieza->seguimientos
+        ->sum('pago');
+
+
+    $pendiente = max(
+        0,
+        $limpieza->costo_total - $totalAplicado
+    );
+
+
+
+    // 📄 Generar PDF
+    $pdf = Pdf::loadView('pacientes.pdf.limpiezas-timeline', [
+
+        'limpieza'      => $limpieza,
+
+        'paciente'      => $limpieza->paciente,
+
+        'totalAplicado' => $totalAplicado,
+
+        'pendiente'     => $pendiente,
+
+        'fecha'         => now(),
+
+    ])->setPaper('a4', 'portrait');
+
+
+
+    // 📎 Nombre dinámico
+
+    $nombre = 'Timeline_Limpieza_' .
+        $limpieza->paciente->nombre .
+        '.pdf';
+
+
+
+    return $this->renderPdf($pdf, $nombre);
+
 }
 
 

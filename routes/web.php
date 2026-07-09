@@ -8,6 +8,8 @@ use App\Http\Controllers\PlanController;
 use App\Http\Controllers\OrtodonciaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProtesisController;
+use App\Http\Controllers\LimpiezaController;
+use App\Http\Controllers\LimpiezaSeguimientoController;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -88,6 +90,8 @@ Route::middleware('auth')->group(function () {
     Route::get('pacientes/protesis/{protesis}/pdf',[PacientePdfController::class, 'protesisTimelinePdf'])
         ->name('protesis.timeline.pdf');
 
+    Route::get('pacientes/limpieza/{limpieza}/pdf',[PacientePdfController::class, 'limpiezasTimelinePdf'])
+        ->name('limpiezas.timeline.pdf');
 
     // Ortodoncia
     Route::post('/ortodoncia/guardar', [OrtodonciaController::class, 'store'])
@@ -126,6 +130,30 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/protesis/{protesis}/finalizar',[ProtesisController::class, 'finalizar'])
         ->name('protesis.finalizar');
+
+    /* Limpiezas */
+    // Crear expediente de limpieza
+    Route::post('/pacientes/{paciente}/limpiezas',[LimpiezaController::class, 'store'])
+        ->name('limpiezas.store');
+    // Actualizar expediente de limpieza
+    Route::put('/limpiezas/{limpieza}',[LimpiezaController::class, 'update'])
+        ->name('limpiezas.update');
+    // Finalizar expediente
+    Route::post('/limpiezas/{limpieza}/finalizar',[LimpiezaController::class, 'finalizar'])
+        ->name('limpiezas.finalizar');
+    // Eliminar expediente completo
+    Route::delete('/limpiezas/{limpieza}',[LimpiezaController::class, 'destroy'])
+        ->name('limpiezas.destroy');
+    // Crear seguimiento
+    Route::post('/limpiezas/{limpieza}/seguimiento',[LimpiezaSeguimientoController::class, 'store'])
+        ->name('limpiezas.seguimiento.store');
+    // Editar seguimiento
+    Route::put('/limpieza-seguimiento/{seguimiento}',[LimpiezaSeguimientoController::class, 'update'])
+        ->name('limpiezas.seguimiento.update');
+    // Eliminar seguimiento
+    Route::delete('/limpieza-seguimiento/{seguimiento}',[LimpiezaSeguimientoController::class, 'destroy'])
+        ->name('limpiezas.seguimiento.destroy');
+
 
 });
 

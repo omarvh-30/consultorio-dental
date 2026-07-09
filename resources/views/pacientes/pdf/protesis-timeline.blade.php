@@ -118,7 +118,6 @@ h3 { font-size: 12px; margin-bottom: 4px; color:#0d6efd; }
 <div class="section">
     <strong>Paciente:</strong> {{ $paciente->nombre }}<br>
     <strong>Edad:</strong> {{ $paciente->edad ?? '—' }}<br>
-    <strong>Expediente:</strong> {{ $paciente->id }}
 </div>
 
 <hr>

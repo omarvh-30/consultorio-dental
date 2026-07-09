@@ -68,4 +68,13 @@ class Paciente extends Model
                     ->where('estado', 'en_proceso');
     }
 
+    public function limpiezas()
+    {
+        return $this->hasMany(Limpieza::class);
+    }
+    public function limpiezaActiva()
+    {
+        return $this->hasOne(Limpieza::class)
+                    ->where('estado', 'activa');
+    }
 }

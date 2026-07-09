@@ -27,23 +27,11 @@
 
 {{-- ===== ALERTAS GLOBALES (NUEVO) ===== --}}
 @if(session('error'))
-<div class="card border-0 shadow-sm mb-3">
-    <div class="card-body d-flex align-items-start">
-
-        <i class="fa-solid fa-circle-xmark text-danger fa-lg me-3 mt-1"></i>
-
-        <div>
-            <div class="fw-semibold text-danger">
-                Ocurrió un problema
-            </div>
-
-            <div class="small text-muted">
-                {{ session('error') }}
-            </div>
-        </div>
-
-    </div>
-</div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    alert(@json(session('error')));
+});
+</script>
 @endif
 
 
@@ -263,6 +251,13 @@ Planes Anteriores
     </button>
 </li>
 @endif
+
+<li class="nav-item">
+    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#limpiezas">
+        <i class="fa-solid fa-spray-can-sparkles me-1"></i>
+        Limpiezas
+    </button>
+</li>
 
 </ul>
 
@@ -1880,5 +1875,9 @@ Guardar Pago
 </div>
 @endif
 
+{{-- ========= TAB 7 : LIMPIEZAS ========= --}}
+<div class="tab-pane fade" id="limpiezas">
+    @include('pacientes.limpiezas.index')
+</div>
 
 @endsection
