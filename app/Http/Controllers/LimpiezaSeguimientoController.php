@@ -77,22 +77,7 @@ class LimpiezaSeguimientoController extends Controller
             'firma' =>
                 $request->firma,
         ]);
-        /*
-        |--------------------------------------------------------------------------
-        | Actualizar estado si corresponde
-        |--------------------------------------------------------------------------
-        */
-        $totalPagado = $limpieza->seguimientos()
-            ->sum('pago')
-            +
-            $request->pago;
-        if ($totalPagado >= $limpieza->costo_total) {
-            $limpieza->update([
-                'estado' => 'finalizada',
-                'fecha_termino' => now()
-            ]);
 
-        }
         return back()->with(
             'success',
             'Seguimiento registrado correctamente.'
