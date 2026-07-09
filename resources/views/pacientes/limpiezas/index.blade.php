@@ -814,11 +814,11 @@
     </div>
 </div>
 
-
 <script>
 let signaturePadSeguimiento;
 
 document.addEventListener('DOMContentLoaded', function () {
+
     function formatearFecha(fecha) {
         if (!fecha) return '—';
         const partes = fecha.split('-');
@@ -870,14 +870,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 modalConfirmacion.show();
             }, 300);
         });
-    }
-
     /*
     |--------------------------------------------------------------------------
     | Inicializar SignaturePad
     |--------------------------------------------------------------------------
     */
-
     const modalConfirmarServicio =
         document.getElementById('modalConfirmarServicio');
     if (modalConfirmarServicio) {
@@ -889,13 +886,11 @@ document.addEventListener('DOMContentLoaded', function () {
             signaturePadSeguimiento = new SignaturePad(canvas);
         });
     }
-
     /*
     |--------------------------------------------------------------------------
     | Limpiar firma
     |--------------------------------------------------------------------------
     */
-
     const btnLimpiar =
         document.getElementById('limpiarFirmaSeguimiento');
     if (btnLimpiar) {
@@ -905,13 +900,11 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
-
     /*
     |--------------------------------------------------------------------------
     | Confirmar y guardar
     |--------------------------------------------------------------------------
     */
-
     const btnGuardar =
         document.getElementById('btnGuardarSeguimiento');
     if (btnGuardar) {
@@ -925,26 +918,24 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('formSeguimientoLimpieza').submit();
         });
     }
-
-
     /*
     |--------------------------------------------------------------------------
     | Mostrar firma
     |--------------------------------------------------------------------------
     */
     const firmasSeguimientos = {
+    @if($limpiezaActiva)
     @foreach($limpiezaActiva->seguimientos as $seguimiento)
-        "{{ $seguimiento->id }}": @js($seguimiento->firma),
+            "{{ $seguimiento->id }}": @js($seguimiento->firma),
     @endforeach
-    };
+    @endif
+        };
     document.querySelectorAll('.btnVerFirma').forEach(btn => {
-        btn.addEventListener('click', function(){
+        btn.addEventListener('click', function () {
             const id = this.dataset.firma;
-            const firma = firmasSeguimientos[id];
-            document.getElementById('imagenFirma').src = firma;
-
+            document.getElementById('imagenFirma').src =
+                firmasSeguimientos[id] ?? '';
         });
     });
-    });
-
+});
 </script>
